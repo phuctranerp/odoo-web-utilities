@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="fshare_connector_form_view" model="ir.ui.view">
+        <field name="name">fshare.connector.form.view</field>
+        <field name="model">fshare.connector</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="username"/>
+                        <field name="password" password="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="fshare_connector_tree_view" model="ir.ui.view">
+        <field name="name">fshare.connector.tree.view</field>
+        <field name="model">fshare.connector</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="username"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_view_fshare_connector" model="ir.actions.act_window">
+        <field name="name">Fshare Connector</field>
+        <field name="res_model">fshare.connector</field>
+        <field name="context"></field>
+        <field name="view_id" ref="fshare_direct_links.fshare_connector_tree_view"/>
+    </record>
+
+    <menuitem id="menu_fshare_root" name="Fshare" parent="website.menu_website_configuration" sequence="20"/>
+    <menuitem action="action_view_fshare_connector" id="menu_fshare_connector" name="Fshare Connector" parent="fshare_direct_links.menu_fshare_root"/>
+
+
+</odoo>

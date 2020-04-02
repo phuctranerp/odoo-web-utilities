@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="fshare_direct_links.fshare_get_link_form" name="Fshare - Get direct link">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <div class="container">
+                <h1 class="o_form_heading">Get Link Fshare</h1>
+
+                        <div>
+                            <label for="exampleFormControlInput1">Link</label>
+                            <input type="email" class="form-control" id="txt_source_fshare_link" placeholder="Ex: https://www.fshare.vn/file/QWZ2ZLM5J19U"/>
+                        </div>
+
+                        <br/>
+                        <center><button class="btn btn-primary mb-2 btn-get-link-fshare">Get Link</button></center>
+
+                        <div>
+                            <label for="exampleFormControlTextarea1">Direct Link</label>
+                            <textarea class="form-control" id="txt_dest_fshare_link" rows="3"></textarea>
+                        </div>
+
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>
