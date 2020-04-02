@@ -14,6 +14,8 @@ class FshareConnector(models.Model):
         """
         @Function to get fshare link
         """
+        # Track the link
+        self.env["fshare.link"].sudo().create({'name': url})
         session = FSAPI(email=self.username, password=self.password)
         session.login()
         try:
