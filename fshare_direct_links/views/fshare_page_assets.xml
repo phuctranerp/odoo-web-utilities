@@ -3,6 +3,8 @@
     <template id="assets_frontend" inherit_id="web.assets_frontend" name="Auth Assets">
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/fshare_direct_links/static/src/js/fshare_page_widget.js"></script>
+            <script type="text/javascript" src="/fshare_direct_links/static/src/js/fshare_page_giveaway.js"></script>
+
         </xpath>
     </template>
 </odoo>

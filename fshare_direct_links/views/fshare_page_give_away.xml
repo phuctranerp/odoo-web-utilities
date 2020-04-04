@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="fshare_direct_links.fshare_giveaway" name="Give Away">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+                <div class="container">
+                    <h1 class="o_form_heading">Give Away 5 account VIP 1 ngày</h1>
+                    <h4>Nhập email fshare của bạn, nhấn submit và chờ kết quả nhen :D</h4>
+                    <br/>
+                    <br/>
+                    <div>
+                        <label for="exampleFormControlInput1">Điền email của bạn</label>
+                        <input type="email" class="form-control" id="txt_email"/>
+                    </div>
+
+                    <br/>
+                    <center><button class="btn btn-primary mb-2 btn-submit-give-away">Submit</button></center>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

@@ -17,7 +17,8 @@
         "views/fshare_connector_view.xml",
         "views/fshare_page_template.xml",
         "views/fshare_page_assets.xml",
-        "views/fshare_page_menu.xml"
+        "views/fshare_page_menu.xml",
+        "views/fshare_page_give_away.xml",
     ],
 
     'test': [],

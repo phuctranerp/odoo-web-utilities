@@ -43,6 +43,24 @@
         <field name="view_id" ref="fshare_direct_links.fshare_link_tree_view"/>
     </record>
 
+    <record id="fshare_email_tree_view" model="ir.ui.view">
+        <field name="name">fshare.email.tree.view</field>
+        <field name="model">fshare.email</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_view_fshare_email" model="ir.actions.act_window">
+        <field name="name">Fshare Emails</field>
+        <field name="res_model">fshare.email</field>
+        <field name="context"></field>
+        <field name="view_id" ref="fshare_direct_links.fshare_email_tree_view"/>
+    </record>
+
+
     <record id="action_view_fshare_connector" model="ir.actions.act_window">
         <field name="name">Fshare Connector</field>
         <field name="res_model">fshare.connector</field>
@@ -53,8 +71,6 @@
     <menuitem id="menu_fshare_root" name="Fshare" parent="website.menu_website_configuration" sequence="20"/>
     <menuitem action="action_view_fshare_connector" id="menu_fshare_connector" name="Fshare Connector" parent="fshare_direct_links.menu_fshare_root"/>
     <menuitem action="action_view_fshare_link" id="menu_fshare_link" name="Fshare Links" parent="fshare_direct_links.menu_fshare_root"/>
-
-
-
+    <menuitem action="action_view_fshare_email" id="menu_fshare_email" name="Fshare Emails" parent="fshare_direct_links.menu_fshare_root"/>
 
 </odoo>
