@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="jira_connector_form_view" model="ir.ui.view">
+        <field name="name">jira.connector.form.view</field>
+        <field name="model">jira.connector</field>
+        <field name="arch" type="xml">
+            <form>
+            <header>
+                <button name="get_all_tms_data" type="object" string="Get TMS Data" class="oe_highlight"/>
+            </header>
+                <sheet>
+                    <group string="Jira">
+                        <field name="name"/>
+                        <field name="jira_url"/>
+                        <field name="jira_token"/>
+                        <field name="jira_project_key"/>
+                    </group>
+                    <group string="TMS">
+                        <field name="tms_path"/>
+                        <field name="tms_db"/>
+                        <field name="tms_auth_user"/>
+                        <field name="tms_auth_pass" password="1"/>
+                        <field name="tms_username"/>
+                        <field name="tms_password" password="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="jira_connector_tree_view" model="ir.ui.view">
+        <field name="name">jira.connector.tree.view</field>
+        <field name="model">jira.connector</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="jira_url"/>
+                <field name="tms_path"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ticket_ticket_form_view" model="ir.ui.view">
+        <field name="name">ticket.ticket.form.view</field>
+        <field name="model">ticket.ticket</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="get_tms_data" type="object" string="Get TMS Data" class="oe_highlight"/>
+                    <button name="create_jira_task" type="object" string="Create Jira Task" class="oe_highlight" attrs="{'invisible': [('jira_ref', '!=', False)]}"/>
+                </header>
+                <sheet>
+                    <group string="Information">
+                        <field name="name"/>
+                        <field name="connector_id"/>
+                        <field name="issue_type"/>
+                        <field name="tms_ref"/>
+                        <field name="jira_ref"/>
+                        <field name="jira_task_id"/>
+                        <field name="summary" />
+                    </group>
+                    <group string="Content">
+                        <field name="description" colspan="4" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ticket_ticket_tree_view" model="ir.ui.view">
+        <field name="name">ticket.ticket.tree.view</field>
+        <field name="model">ticket.ticket</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="connector_id"/>
+                <field name="tms_ref"/>
+                <field name="jira_ref"/>
+                <field name="summary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_view_ticket_ticket" model="ir.actions.act_window">
+        <field name="name">Tickets</field>
+        <field name="res_model">ticket.ticket</field>
+        <field name="context"></field>
+        <field name="view_id" ref="tms_jira_connector.ticket_ticket_tree_view"/>
+    </record>
+
+
+    <record id="action_view_jira_connector" model="ir.actions.act_window">
+        <field name="name">Jira Connectors</field>
+        <field name="res_model">jira.connector</field>
+        <field name="context"></field>
+        <field name="view_id" ref="tms_jira_connector.jira_connector_tree_view"/>
+    </record>
+
+    <menuitem id="menu_jira_root" name="Jira Connector" parent="website.menu_website_configuration" sequence="20"/>
+    <menuitem action="action_view_jira_connector" id="menu_jira_connector" name="Jira Connectors" parent="tms_jira_connector.menu_jira_root"/>
+    <menuitem action="action_view_ticket_ticket" id="menu_ticket_ticket" name="Tickets" parent="tms_jira_connector.menu_jira_root"/>
+
+</odoo>
