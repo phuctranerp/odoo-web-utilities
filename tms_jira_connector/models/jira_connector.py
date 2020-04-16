@@ -14,6 +14,7 @@ class JiraConnector(models.Model):
 
     name = fields.Char()
     jira_url = fields.Char("Jira URL")
+    jira_email = fields.Char("Jira Email")
     jira_token = fields.Char("Jira Token")
     jira_project_key = fields.Char()
     tms_path = fields.Char("TMS Path")
@@ -59,13 +60,8 @@ class JiraConnector(models.Model):
         """
         self.ensure_one()
         request_url = "%s/rest/api/2/issue/" % self.jira_url
-        # header = {
-        #     "Content-Type": "application/json",
-        #     "Authorization": "Bearer %s" % self.jira_token,
-        #     "Cache-Control": "no-cache"
-        # }
 
-        BASIC_AUTH = HTTPBasicAuth("phuc@trobz.com", self.jira_token)
+        BASIC_AUTH = HTTPBasicAuth(self.jira_email, self.jira_token)
         HEADERS = {'Content-Type' : 'application/json;charset=iso-8859-1'}
 
         data = {
@@ -81,15 +77,6 @@ class JiraConnector(models.Model):
                 },
             }
         }
-
-        # Make the request
-        # resp = requests.request(
-        #     method="POST",
-        #     url=request_url,
-        #     headers=header,
-        #     data=json.dumps(data, indent=4),
-        # )
-
         response = requests.post(
             request_url,
             headers=HEADERS,

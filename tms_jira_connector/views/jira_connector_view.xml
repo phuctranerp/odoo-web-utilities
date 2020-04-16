@@ -12,6 +12,7 @@
                     <group string="Jira">
                         <field name="name"/>
                         <field name="jira_url"/>
+                        <field name="jira_email"/>
                         <field name="jira_token"/>
                         <field name="jira_project_key"/>
                     </group>
