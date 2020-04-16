@@ -23,8 +23,25 @@ class JiraConnector(models.Model):
     tms_auth_pass = fields.Char("TMS Auth Pass")
     tms_username = fields.Char("TMS Username")
     tms_password = fields.Char("TMS Password")
+    default_assignee = fields.Char()
+
+    def mass_assigning_task(self):
+        self.ensure_one()
+        tickets = self.env["ticket.ticket"].search(
+            [("connector_id", "=", self.id)])
+        for ticket in tickets:
+            try:
+                self.assign_task(ticket)
+            except Exception:
+                continue
+
+    def get_jira_authen(self):
+        BASIC_AUTH = HTTPBasicAuth(self.jira_email, self.jira_token)
+        HEADERS = {'Content-Type' : 'application/json;charset=iso-8859-1'}
+        return BASIC_AUTH, HEADERS
 
     def get_all_tms_data(self):
+        self.ensure_one()
         tickets = self.env["ticket.ticket"].search(
             [("connector_id", "=", self.id)])
         for ticket in tickets:
@@ -61,8 +78,7 @@ class JiraConnector(models.Model):
         self.ensure_one()
         request_url = "%s/rest/api/2/issue/" % self.jira_url
 
-        BASIC_AUTH = HTTPBasicAuth(self.jira_email, self.jira_token)
-        HEADERS = {'Content-Type' : 'application/json;charset=iso-8859-1'}
+        BASIC_AUTH, HEADERS = self.get_jira_authen()
 
         data = {
             "fields": {
@@ -92,3 +108,25 @@ class JiraConnector(models.Model):
             })
         else:
             raise UserError(response.text)
+
+    def assign_task(self, ticket):
+        self.ensure_one()
+        request_url = "%s/rest/api/2/issue/%s/assignee" % (
+            self.jira_url, ticket.jira_ref)
+        BASIC_AUTH, HEADERS = self.get_jira_authen()
+
+        data = {
+            "accountId": self.default_assignee
+        }
+
+        res = requests.put(
+            request_url,
+            headers=HEADERS,
+            auth=BASIC_AUTH,
+            data=json.dumps(data, indent=4)
+        )
+
+        if str(res.status_code) == "204":
+            ticket.assigned = True
+        else:
+            raise UserError(res.text)

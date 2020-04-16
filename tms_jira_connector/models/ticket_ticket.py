@@ -15,6 +15,11 @@ class TicketTicket(models.Model):
     jira_task_id = fields.Integer("Jira Ticket ID")
     summary = fields.Char("Description")
     description = fields.Text("Content")
+    assigned = fields.Boolean("Assigned ?")
+
+    def assign_task(self):
+        for ticket in self:
+            ticket.connector_id.assign_task(ticket)
 
     def get_tms_data(self):
         for ticket in self:
@@ -26,4 +31,4 @@ class TicketTicket(models.Model):
 
     def _compute_ticket_name(self):
         for ticket in self:
-            ticket.name = "[%s] %s" % (self.tms_ref or "", self.summary or "")
+            ticket.name = "[%s] %s" % (ticket.tms_ref or "", ticket.summary or "")
